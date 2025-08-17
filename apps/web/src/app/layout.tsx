@@ -34,7 +34,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="bg-background text-text-primary antialiased">
-        {children}
+        <div className="flex min-h-screen w-full justify-center items-start">
+          {/* Mobile app shell with gradient boundary for large screens */}
+          <div className="mt-6 mb-8 rounded-[26px] bg-gradient-to-br from-accent-purple/30 via-white/10 to-transparent p-[1.5px] shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+            <div className="relative w-full max-w-[430px] rounded-[24px] ring-1 ring-white/10 bg-background overflow-hidden">
+              {children}
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -32,7 +32,7 @@ export default function MarketPage({ params }: PageProps) {
   return (
     <main className="min-h-screen pb-20">
       {/* Header with back button */}
-      <header className="bg-background pt-6 pb-4 px-4 sticky top-0 z-10">
+      <header className="bg-background/70 backdrop-blur-md pt-6 pb-3 px-4 sticky top-0 z-20">
         <div className="flex items-center">
           <Link href="/" className="w-10 h-10 rounded-full bg-background-secondary flex items-center justify-center mr-4">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,8 +51,8 @@ export default function MarketPage({ params }: PageProps) {
         />
       </div>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-background-card rounded-t-2xl shadow-lg border-t border-background-tertiary z-50">
+      {/* Bottom Navigation (contained within mobile shell) */}
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-background-card rounded-t-2xl shadow-lg border-t border-background-tertiary z-50">
         <div className="flex items-center justify-around h-16 px-2">
           <Link href="/" className="flex flex-col items-center justify-center w-16 text-text-tertiary">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

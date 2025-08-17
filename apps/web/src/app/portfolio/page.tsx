@@ -52,11 +52,11 @@ export default function Portfolio() {
   return (
     <main className="pb-20">
       {/* Header */}
-      <header className="bg-background pt-12 pb-6 px-4">
+      <header className="bg-background/70 backdrop-blur-md pt-10 pb-4 px-4 sticky top-0 z-20">
         <h1 className="text-display-small font-semibold mb-6">Portfolio</h1>
         
         {/* Balance card */}
-        <Card className="mb-6 bg-gradient-to-br from-background-card to-background-tertiary">
+        <Card variant="glass" className="mb-6">
           <CardContent className="py-6">
             <div className="mb-1">
               <span className="text-text-secondary text-sm">Total balance</span>
@@ -153,8 +153,8 @@ export default function Portfolio() {
         </Card>
       </section>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-background-card rounded-t-2xl shadow-lg border-t border-background-tertiary z-50">
+      {/* Bottom Navigation (contained within mobile shell) */}
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-background-card rounded-t-2xl shadow-lg border-t border-background-tertiary z-50">
         <div className="flex items-center justify-around h-16 px-2">
           <Link href="/" className="flex flex-col items-center justify-center w-16 text-text-tertiary">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,8 +1,15 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { CapsuleCard } from '@/components/ui/CapsuleCard';
+import { SegmentedControl } from '@/components/ui/SegmentedControl';
+import { QuickActionDrawer } from '@/components/ui/QuickActionDrawer';
 
 export default function Home() {
+  const [votes, setVotes] = useState<Record<string, 'yes' | 'no' | undefined>>({});
+  const [segment, setSegment] = useState<string>('All');
+  const [query, setQuery] = useState('');
+  const [drawerOpen, setDrawerOpen] = useState(false);
   // Sample market data for illustration
   const sampleMarkets = [
     {
@@ -50,42 +57,54 @@ export default function Home() {
   ];
 
   return (
-    <main className="pb-20">
+    <main className="pb-24">
       {/* Header */}
-      <header className="bg-background pt-12 pb-6 px-4">
-        <div className="flex justify-between items-center mb-6">
+      <header className="sticky top-0 z-20 bg-background/70 backdrop-blur-md pt-6 pb-3 px-4">
+        <div className="flex justify-between items-center mb-4">
           <h1 className="text-display-small font-semibold">Betvix</h1>
           <div className="h-10 w-10 rounded-full bg-background-secondary flex items-center justify-center">
             <span>👤</span>
           </div>
         </div>
-        <p className="text-text-secondary">Today's trending prediction markets</p>
+        <div className="space-y-3">
+          <p className="text-text-secondary">Today's trending AI-generated news capsules</p>
+          {/* Floating search */}
+          <div className="flex items-center gap-2 rounded-full bg-background-secondary/70 backdrop-blur px-4 py-2 border border-white/10">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-text-tertiary">
+              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search capsules, topics..."
+              className="bg-transparent outline-none text-sm placeholder:text-text-tertiary w-full"
+            />
+            {/* Context chips (static demo) */}
+            <div className="hidden sm:flex gap-2">
+              <span className="text-xs text-accent-purple bg-accent-purple/15 px-2 py-0.5 rounded-full">crypto</span>
+              <span className="text-xs text-text-secondary bg-white/5 px-2 py-0.5 rounded-full">AI</span>
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* Categories */}
-      <div className="px-4 pb-4 overflow-x-auto scrollbar-hide">
-        <div className="flex space-x-2 w-max">
-          <button className="bg-accent-purple text-white px-4 py-2 rounded-full text-sm font-medium">
-            All
-          </button>
-          <button className="bg-background-secondary text-text-primary px-4 py-2 rounded-full text-sm font-medium">
-            Crypto
-          </button>
-          <button className="bg-background-secondary text-text-primary px-4 py-2 rounded-full text-sm font-medium">
-            Politics
-          </button>
-          <button className="bg-background-secondary text-text-primary px-4 py-2 rounded-full text-sm font-medium">
-            Finance
-          </button>
-          <button className="bg-background-secondary text-text-primary px-4 py-2 rounded-full text-sm font-medium">
-            Tech
-          </button>
-        </div>
+      <div className="px-4 pb-3">
+        <SegmentedControl 
+          options={["All", "Crypto", "Politics", "Finance", "Tech"]}
+          value={segment}
+          onChange={setSegment}
+          className="w-full justify-between"
+        />
       </div>
 
-      {/* Market Capsules */}
-      <div className="px-4 space-y-4">
-        {sampleMarkets.map(market => (
+      {/* News Capsules feed */}
+      <div className="px-4 space-y-3">
+        {sampleMarkets
+          .filter(m => segment === 'All' || m.title.toLowerCase().includes(segment.toLowerCase()))
+          .filter(m => !query || m.title.toLowerCase().includes(query.toLowerCase()) || m.lines.some(l => l.toLowerCase().includes(query.toLowerCase())))
+          .map(market => (
           <Link key={market.id} href={`/markets/${market.id}`}>
             <CapsuleCard 
               title={market.title}
@@ -93,13 +112,15 @@ export default function Home() {
               deadline={market.deadline}
               odds={market.odds}
               status={market.status}
+              selectedSide={votes[market.id]}
+              onVote={(side) => setVotes(prev => ({ ...prev, [market.id]: side }))}
             />
           </Link>
         ))}
       </div>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-background-card rounded-t-2xl shadow-lg border-t border-background-tertiary z-50">
+      {/* Bottom Navigation (contained within mobile shell) */}
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-background-card rounded-t-2xl shadow-lg border-t border-background-tertiary z-50">
         <div className="flex items-center justify-around h-16 px-2">
           <Link href="/" className="flex flex-col items-center justify-center w-16 text-accent-purple">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +138,7 @@ export default function Home() {
           </Link>
           
           <div className="w-16 flex flex-col items-center">
-            <button className="w-12 h-12 rounded-full bg-accent-purple flex items-center justify-center -mt-5 shadow-lg">
+            <button onClick={() => setDrawerOpen(true)} className="w-12 h-12 rounded-full bg-accent-purple flex items-center justify-center -mt-6 shadow-lg">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 5V19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -142,6 +163,16 @@ export default function Home() {
           </Link>
         </div>
       </nav>
+
+      <QuickActionDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        actions={[
+          { label: 'Create Market', onClick: () => console.log('create') },
+          { label: 'Import News', onClick: () => console.log('import') },
+          { label: 'Scan Headlines', onClick: () => console.log('scan') },
+        ]}
+      />
     </main>
   );
 }

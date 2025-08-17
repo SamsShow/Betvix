@@ -15,6 +15,8 @@ interface CapsuleCardProps extends React.HTMLAttributes<HTMLDivElement> {
   };
   status?: 'open' | 'closed' | 'resolved' | 'invalid';
   onCardClick?: () => void;
+  onVote?: (side: 'yes' | 'no') => void;
+  selectedSide?: 'yes' | 'no';
 }
 
 export function CapsuleCard({
@@ -25,6 +27,8 @@ export function CapsuleCard({
   status = 'open',
   className,
   onCardClick,
+  onVote,
+  selectedSide,
   ...props
 }: CapsuleCardProps) {
   // Format the deadline
@@ -34,6 +38,7 @@ export function CapsuleCard({
   
   return (
     <Card 
+      variant="glass"
       className={cn(
         'cursor-pointer hover:shadow-card-hover transition-shadow',
         className
@@ -41,14 +46,16 @@ export function CapsuleCard({
       onClick={onCardClick}
       {...props}
     >
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
+      <CardHeader className="items-start">
+        <CardTitle className="pr-12 leading-snug">{title}</CardTitle>
         {status === 'open' && (
-          <OddsDisplay value={odds.yes} />
+          <div className="absolute right-4 -mt-2">
+            <OddsDisplay value={odds.yes} size="sm" />
+          </div>
         )}
         {status !== 'open' && (
           <span className={cn(
-            'text-sm font-medium px-2 py-1 rounded-full',
+            'text-xs font-medium px-2 py-1 rounded-full',
             {
               'bg-yellow-500/20 text-yellow-400': status === 'closed',
               'bg-accent-green/20 text-accent-green': status === 'resolved',
@@ -61,7 +68,7 @@ export function CapsuleCard({
       </CardHeader>
       
       <CardContent>
-        <div className="space-y-2 mb-3">
+        <div className="space-y-1.5 mb-3">
           {lines.map((line, index) => (
             <p key={index} className="text-text-secondary text-body-medium">
               {line}
@@ -69,14 +76,30 @@ export function CapsuleCard({
           ))}
         </div>
         
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between">
           <div className="flex gap-2">
-            <span className="text-accent-purple bg-accent-purple/10 text-xs px-2 py-1 rounded-full">
-              Yes: {Math.round(odds.yes * 100)}%
-            </span>
-            <span className="text-red-400 bg-red-500/10 text-xs px-2 py-1 rounded-full">
-              No: {Math.round(odds.no * 100)}%
-            </span>
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); onVote?.('yes'); }}
+              className={cn(
+                'text-xs px-2 py-1 rounded-full border transition-colors',
+                selectedSide === 'yes'
+                  ? 'bg-accent-purple text-white border-accent-purple'
+                  : 'text-accent-purple border-accent-purple/40 bg-accent-purple/10 hover:bg-accent-purple/15'
+              )}
+            >
+              Yes {Math.round(odds.yes * 100)}%
+            </button>
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); onVote?.('no'); }}
+              className={cn(
+                'text-xs px-2 py-1 rounded-full border transition-colors',
+                selectedSide === 'no'
+                  ? 'bg-red-500 text-white border-red-500'
+                  : 'text-red-400 border-red-500/40 bg-red-500/10 hover:bg-red-500/15'
+              )}
+            >
+              No {Math.round(odds.no * 100)}%
+            </button>
           </div>
           
           <div className="text-text-tertiary text-xs">
