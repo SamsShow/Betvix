@@ -54,7 +54,7 @@ export default function Home() {
       {/* Header */}
       <header className="bg-background pt-12 pb-6 px-4">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-display-small font-semibold">BetCaps</h1>
+          <h1 className="text-display-small font-semibold">Betvix</h1>
           <div className="h-10 w-10 rounded-full bg-background-secondary flex items-center justify-center">
             <span>👤</span>
           </div>

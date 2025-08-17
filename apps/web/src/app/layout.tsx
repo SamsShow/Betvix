@@ -9,14 +9,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'BetCaps - On-Chain Prediction Markets',
+  title: 'Betvix - On-Chain Prediction Markets',
   description: 'Make predictions on real-world news events',
   manifest: '/manifest.json',
   themeColor: '#121212',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'BetCaps',
+    title: 'Betvix',
   },
   viewport: {
     width: 'device-width',
