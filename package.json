@@ -1,0 +1,38 @@
+{
+  "name": "betcaps",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-chain prediction platform for news events",
+  "author": "Betvix",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "contracts:compile": "turbo run compile --filter=\"./contracts/*\"",
+    "contracts:test": "turbo run test --filter=\"./contracts/*\"",
+    "deploy:base-testnet": "cd contracts/evm && npx hardhat run scripts/deploy.ts --network baseSepolia",
+    "deploy:aptos-testnet": "cd contracts/move && aptos move publish --named-addresses betcaps=default --network testnet",
+    "deploy:web": "cd apps/web && vercel deploy --prod"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
+    "turbo": "^1.12.4",
+    "typescript": "^5.3.3"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ]
+}

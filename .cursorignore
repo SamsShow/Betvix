@@ -1,0 +1,28 @@
+# Build outputs
+**/dist
+**/build
+**/.next
+**/out
+**/storybook-static
+
+# Dependencies
+**/node_modules
+
+# Generated files
+**/generated
+**/artifacts
+**/cache
+**/typechain
+**/typechain-types
+
+# Move build files
+**/.aptos
+**/build/
+
+# Testing
+**/coverage
+
+# Misc
+**/.DS_Store
+**/.env.*
+**/.turbo

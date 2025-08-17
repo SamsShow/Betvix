@@ -1,0 +1,55 @@
+# Betvix Development Context
+
+## Project Overview
+Betvix is a multi-chain, on-chain prediction platform that converts real-world news into binary prediction markets.
+Initial deployment targets: Base (EVM, L2) and Aptos (Move, L1).
+
+## Architecture Components
+- Frontend: React + Tailwind PWA with Wagmi/Viem (Base) and Aptos SDK
+- Smart Contracts: Solidity for Base, Move modules for Aptos
+- Off-Chain Services: News ingestion, NLP, Quote service, Indexer, Notifications
+- Data Stores: Postgres, Redis, IPFS/S3
+
+## Development Standards
+- Code Style: Prettier for JS/TS, Solhint for Solidity
+- Testing: Foundry for EVM contracts, Move Prover for Aptos modules
+- Component Structure: Component-based architecture with clear separation of concerns
+- State Management: TanStack Query for server state, Zustand for UI state
+
+## Project Structure
+- /apps/web: Frontend PWA application
+- /apps/api: Backend API gateway
+- /contracts/evm: Solidity contracts for Base
+- /contracts/move: Move modules for Aptos
+- /services: Microservices (ingestion, nlp, indexer, quote)
+- /packages: Shared libraries and utilities
+
+## Core Components
+
+### Smart Contracts (Base)
+- MarketFactory: Creates new binary markets
+- BinaryMarket: Manages CPMM pools, betting, resolution
+- ResolverOracleAdapter: Handles outcome resolution
+- Treasury: Fee collection and management
+
+### Move Modules (Aptos)
+- market_factory: Creates binary markets
+- binary_market: Manages pools, betting, resolution
+- treasury: Fee collection
+- resolver_adapter: Outcome resolution
+
+### Key Services
+- News Ingestion: Fetches headlines, dedupes, classifies
+- NLP: Generates capsules and bet statements
+- Quote Service: Computes post-trade pools and payouts
+- Indexer: Captures on-chain events
+
+## Environment Configuration
+- Development: Local environment with hardhat/aptos CLI
+- Testing: Base Sepolia + Aptos Testnet
+- Production: Base Mainnet + Aptos Mainnet
+
+## Important Constraints
+- MVP Scope: Binary markets only, no multi-outcome
+- Security: Pausable contracts, per-market caps, timelocked admin
+- Performance: Quote latency < 250ms, bet confirmation < 5s
