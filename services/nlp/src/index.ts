@@ -9,11 +9,6 @@ const fastify = Fastify({
   logger: true,
 });
 
-// Register CORS
-await fastify.register(cors, {
-  origin: true,
-});
-
 // Initialize Gemini service
 const geminiService = new GeminiService(process.env.GOOGLE_AI_API_KEY || '');
 
@@ -97,6 +92,11 @@ fastify.post('/classify-content', async (request, reply) => {
 // Start server
 const start = async () => {
   try {
+    // Register CORS
+    await fastify.register(cors, {
+      origin: true,
+    });
+    
     const port = process.env.PORT || 3003;
     await fastify.listen({ port: Number(port), host: '0.0.0.0' });
     fastify.log.info(`NLP service listening on port ${port}`);

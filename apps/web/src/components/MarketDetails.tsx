@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
 import { Button } from './ui/Button';
@@ -20,17 +21,24 @@ interface MarketDetailsProps {
     };
     status: 'open' | 'closed' | 'resolved_yes' | 'resolved_no' | 'invalid';
   };
-  onPlaceBet?: (side: 'yes' | 'no') => void;
-  onClaim?: () => void;
 }
 
 export function MarketDetails({ 
   market,
-  onPlaceBet,
-  onClaim,
 }: MarketDetailsProps) {
   const isOpen = market.status === 'open';
   const isResolved = market.status === 'resolved_yes' || market.status === 'resolved_no';
+
+  // Client-side handlers (keeps interactivity inside a Client Component)
+  const handlePlaceBet = (side: 'yes' | 'no') => {
+    // TODO: replace with real client-side logic (open modal, call API, etc.)
+    console.log(`Place ${side} bet`);
+  };
+
+  const handleClaim = () => {
+    // TODO: replace with real client-side logic (call claim endpoint)
+    console.log('Claim winnings');
+  };
   
   return (
     <div className="space-y-6">
@@ -75,14 +83,14 @@ export function MarketDetails({
           <Button 
             variant="primary" 
             fullWidth 
-            onClick={() => onPlaceBet?.('yes')}
+            onClick={() => handlePlaceBet('yes')}
           >
             Bet Yes
           </Button>
           <Button 
             variant="outline" 
             fullWidth 
-            onClick={() => onPlaceBet?.('no')}
+            onClick={() => handlePlaceBet('no')}
           >
             Bet No
           </Button>
@@ -93,7 +101,7 @@ export function MarketDetails({
         <Button 
           variant="primary" 
           fullWidth 
-          onClick={onClaim}
+          onClick={handleClaim}
         >
           Claim Winnings
         </Button>

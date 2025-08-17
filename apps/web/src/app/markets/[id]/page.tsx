@@ -48,8 +48,6 @@ export default function MarketPage({ params }: PageProps) {
       <div className="px-4 py-2">
         <MarketDetails 
           market={market}
-          onPlaceBet={(side) => console.log(`Place ${side} bet`)}
-          onClaim={() => console.log('Claim winnings')}
         />
       </div>
 

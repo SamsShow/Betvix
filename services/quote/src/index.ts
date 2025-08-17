@@ -8,11 +8,6 @@ const fastify = Fastify({
   logger: true,
 });
 
-// Register CORS
-await fastify.register(cors, {
-  origin: true,
-});
-
 // Health check endpoint
 fastify.get('/health', async (request, reply) => {
   return { status: 'ok', service: 'quote', timestamp: new Date().toISOString() };
@@ -83,6 +78,11 @@ fastify.post('/quote', async (request, reply) => {
 // Start server
 const start = async () => {
   try {
+    // Register CORS
+    await fastify.register(cors, {
+      origin: true,
+    });
+    
     const port = process.env.PORT || 3004;
     await fastify.listen({ port: Number(port), host: '0.0.0.0' });
     fastify.log.info(`Quote service listening on port ${port}`);
