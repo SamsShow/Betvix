@@ -1,5 +1,5 @@
 {
-  "name": "@betcaps/ingestion",
+  "name": "@betcaps/quote",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,12 +11,9 @@
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
-    "axios": "^1.6.4",
     "dotenv": "^16.3.1",
     "fastify": "^4.25.2",
     "@fastify/cors": "^9.0.1",
-    "fastq": "^1.15.0",
-    "newsapi": "^2.4.1",
     "pino": "^8.17.2",
     "pino-pretty": "^10.3.1"
   },

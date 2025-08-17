@@ -2,40 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #121212;
-  --background-card: #1E1E1E;
-  --background-secondary: #252525;
-  --background-tertiary: #2A2A2A;
-  
-  --accent-purple: #9D8AC8;
-  --accent-purple-light: #BEB1D9;
-  --accent-purple-dark: #7B69B0;
-  
-  --accent-green: #B2DFAA;
-  --accent-green-light: #D1ECCD;
-  --accent-green-dark: #95CC8E;
-  
-  --text-primary: #FFFFFF;
-  --text-secondary: #AFAFAF;
-  --text-tertiary: #7E7E7E;
-}
-
 @layer base {
   body {
     @apply bg-background text-text-primary font-sans;
-  }
-  
-  h1 {
-    @apply text-display-medium font-semibold;
-  }
-  
-  h2 {
-    @apply text-headline-large font-semibold;
-  }
-  
-  h3 {
-    @apply text-headline-medium font-semibold;
   }
 }
 
@@ -44,30 +13,12 @@
     @apply bg-background-card rounded-card p-card-padding shadow-card;
   }
   
-  .card-highlighted {
-    @apply bg-background-secondary rounded-card p-card-padding shadow-card border border-accent-purple/20;
-  }
-  
   .button-primary {
     @apply bg-accent-purple hover:bg-accent-purple-dark text-white font-medium py-3 px-4 rounded-button transition-colors;
   }
   
   .button-secondary {
     @apply bg-background-secondary hover:bg-background-tertiary text-text-primary font-medium py-3 px-4 rounded-button transition-colors;
-  }
-  
-  .button-outline {
-    @apply border border-accent-purple text-accent-purple hover:bg-accent-purple/10 font-medium py-3 px-4 rounded-button transition-colors;
-  }
-  
-  .input-field {
-    @apply bg-background-secondary text-text-primary placeholder:text-text-tertiary border border-background-tertiary focus:border-accent-purple rounded-input px-4 py-3 outline-none transition-colors;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
   }
 }
 
@@ -78,14 +29,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-tertiary);
+  background: #2A2A2A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-purple-dark);
+  background: #7B69B0;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-purple);
+  background: #9D8AC8;
 }

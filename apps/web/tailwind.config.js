@@ -10,52 +10,28 @@ module.exports = {
     extend: {
       colors: {
         // Dark background theme
-        background: {
-          DEFAULT: '#121212',
-          card: '#1E1E1E',
-          secondary: '#252525',
-          tertiary: '#2A2A2A',
-        },
+        background: '#121212',
+        'background-card': '#1E1E1E',
+        'background-secondary': '#252525',
+        'background-tertiary': '#2A2A2A',
+        
         // Purple accent theme from CashPilot
-        accent: {
-          purple: {
-            light: '#BEB1D9',
-            DEFAULT: '#9D8AC8',
-            dark: '#7B69B0',
-          },
-          green: {
-            light: '#D1ECCD',
-            DEFAULT: '#B2DFAA',
-            dark: '#95CC8E',
-          },
-        },
+        'accent-purple': '#9D8AC8',
+        'accent-purple-light': '#BEB1D9',
+        'accent-purple-dark': '#7B69B0',
+        
+        // Green accent
+        'accent-green': '#B2DFAA',
+        'accent-green-light': '#D1ECCD',
+        'accent-green-dark': '#95CC8E',
+        
         // Text colors
-        text: {
-          primary: '#FFFFFF',
-          secondary: '#AFAFAF',
-          tertiary: '#7E7E7E',
-        },
-        // CashPilot has these chart colors
-        chart: {
-          line: '#9D8AC8',
-          grid: '#333333',
-          background: 'rgba(157, 138, 200, 0.1)',
-        },
+        'text-primary': '#FFFFFF',
+        'text-secondary': '#AFAFAF',
+        'text-tertiary': '#7E7E7E',
       },
       fontFamily: {
         sans: [
-          'Inter',
-          'ui-sans-serif',
-          'system-ui',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'sans-serif',
-        ],
-        display: [
           'Inter',
           'ui-sans-serif',
           'system-ui',
@@ -78,36 +54,21 @@ module.exports = {
         'body-large': ['1.125rem', { lineHeight: '1.5rem' }],
         'body-medium': ['1rem', { lineHeight: '1.5rem' }],
         'body-small': ['0.875rem', { lineHeight: '1.25rem' }],
-        'label-large': ['0.875rem', { lineHeight: '1.25rem', fontWeight: '500' }],
-        'label-medium': ['0.75rem', { lineHeight: '1rem', fontWeight: '500' }],
-        'label-small': ['0.6875rem', { lineHeight: '0.875rem', fontWeight: '500' }],
       },
       boxShadow: {
         'card': '0 4px 8px rgba(0, 0, 0, 0.1)',
         'card-hover': '0 8px 16px rgba(0, 0, 0, 0.2)',
-        'button': '0 2px 4px rgba(0, 0, 0, 0.1)',
       },
       borderRadius: {
         'xl': '1rem',
         '2xl': '1.25rem',
         '3xl': '1.5rem',
-        '4xl': '2rem',
         'card': '1.25rem',
         'button': '1rem',
-        'input': '0.75rem',
       },
       spacing: {
         'card-padding': '1.25rem',
         'section-spacing': '1.5rem',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.3s ease-in-out',
       },
     },
   },

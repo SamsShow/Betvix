@@ -10,7 +10,7 @@
     "pnpm": ">=8.0.0"
   },
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "pnpm --parallel --filter=\"./apps/*\" --filter=\"./services/*\" run dev",
     "build": "turbo build",
     "test": "turbo test",
     "lint": "turbo lint",
@@ -29,10 +29,5 @@
     "prettier": "^3.2.5",
     "turbo": "^1.12.4",
     "typescript": "^5.3.3"
-  },
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "services/*"
-  ]
+  }
 }

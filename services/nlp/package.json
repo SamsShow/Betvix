@@ -10,15 +10,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.2.1",
     "@prisma/client": "^5.7.1",
     "dotenv": "^16.3.1",
     "fastify": "^4.25.2",
-    "fastify-cors": "^6.1.0",
+    "@fastify/cors": "^9.0.1",
     "lodash": "^4.17.21",
-    "openai": "^4.24.1",
     "pino": "^8.17.2",
     "pino-pretty": "^10.3.1",
-    "simhash": "^0.1.1",
+    "simhash": "^0.1.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
