@@ -9,26 +9,31 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Dark background theme
-        background: '#121212',
-        'background-card': '#1E1E1E',
-        'background-secondary': '#252525',
-        'background-tertiary': '#2A2A2A',
+        // Dark background theme - more professional
+        background: '#0F172A',           // Slate-900
+        'background-card': '#1E293B',    // Slate-800
+        'background-secondary': '#334155', // Slate-700
+        'background-tertiary': '#475569',  // Slate-600
         
-        // Purple accent theme from CashPilot
-        'accent-purple': '#9D8AC8',
-        'accent-purple-light': '#BEB1D9',
-        'accent-purple-dark': '#7B69B0',
+        // Purple accent theme - refined for better readability
+        'accent-purple': '#8B5CF6',        // Violet-500
+        'accent-purple-light': '#A78BFA',   // Violet-400
+        'accent-purple-dark': '#7C3AED',    // Violet-600
         
-        // Green accent
-        'accent-green': '#B2DFAA',
-        'accent-green-light': '#D1ECCD',
-        'accent-green-dark': '#95CC8E',
+        // Green accent - more vibrant
+        'accent-green': '#10B981',          // Emerald-500
+        'accent-green-light': '#34D399',    // Emerald-400
+        'accent-green-dark': '#059669',     // Emerald-600
         
-        // Text colors
-        'text-primary': '#FFFFFF',
-        'text-secondary': '#AFAFAF',
-        'text-tertiary': '#7E7E7E',
+        // Additional market colors
+        'market-red': '#EF4444',            // Red-500
+        'market-yellow': '#F59E0B',         // Amber-500
+        'market-blue': '#3B82F6',           // Blue-500
+        
+        // Text colors - improved contrast
+        'text-primary': '#F8FAFC',          // Slate-50
+        'text-secondary': '#CBD5E1',        // Slate-300
+        'text-tertiary': '#94A3B8',         // Slate-400
       },
       fontFamily: {
         sans: [

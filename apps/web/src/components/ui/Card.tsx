@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'highlight' | 'transparent' | 'glass';
+  variant?: 'default' | 'highlight' | 'transparent' | 'glass' | 'modern';
   children: React.ReactNode;
 }
 
@@ -15,13 +15,15 @@ export function Card({
   return (
     <div 
       className={cn(
-        'relative rounded-card shadow-card transition-shadow overflow-hidden',
+        'relative transition-all overflow-hidden',
         {
-          'bg-background-card p-card-padding': variant === 'default',
-          'bg-background-secondary p-card-padding border border-accent-purple/20': variant === 'highlight',
+          'bg-background-card p-card-padding rounded-card shadow-card': variant === 'default',
+          'bg-background-secondary p-card-padding rounded-card border border-accent-purple/20 shadow-card': variant === 'highlight',
           'bg-transparent': variant === 'transparent',
           // Subtle glass card used across the mobile UI
-          'bg-background-card/80 backdrop-blur-md p-card-padding border border-white/10 ring-0': variant === 'glass',
+          'bg-background-card/80 backdrop-blur-md p-card-padding rounded-card border border-white/10 shadow-card': variant === 'glass',
+          // Modern flat design for Polymarket style
+          'bg-background-card p-card-padding rounded-xl border border-background-tertiary/50 hover:border-background-tertiary': variant === 'modern',
         },
         className
       )}
@@ -49,7 +51,7 @@ export function CardHeader({ className, children, ...props }: CardHeaderProps) {
   return (
     <div 
       className={cn(
-        'flex flex-row items-center justify-between mb-4',
+        'flex flex-col items-start mb-3 p-4 pb-0',
         className
       )}
       {...props}
@@ -67,7 +69,7 @@ export function CardTitle({ className, children, ...props }: CardTitleProps) {
   return (
     <h3 
       className={cn(
-        'text-headline-small font-semibold text-text-primary',
+        'text-headline-small font-bold text-text-primary',
         className
       )}
       {...props}
@@ -84,7 +86,7 @@ interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
 export function CardContent({ className, children, ...props }: CardContentProps) {
   return (
     <div 
-      className={cn('', className)}
+      className={cn('p-4 pt-0', className)}
       {...props}
     >
       {children}
@@ -100,7 +102,7 @@ export function CardFooter({ className, children, ...props }: CardFooterProps) {
   return (
     <div 
       className={cn(
-        'flex items-center justify-between mt-4 pt-4 border-t border-background-tertiary',
+        'flex items-center justify-between px-4 py-3 border-t border-background-tertiary',
         className
       )}
       {...props}

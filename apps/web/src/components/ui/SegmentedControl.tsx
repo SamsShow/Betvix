@@ -12,10 +12,10 @@ interface SegmentedControlProps {
 
 export function SegmentedControl({ options, value, onChange, className }: SegmentedControlProps) {
   return (
-    <div className={cn('relative inline-flex items-center rounded-full bg-background-secondary/70 backdrop-blur p-1 border border-white/10', className)}>
+    <div className={cn('relative inline-flex items-center rounded-lg bg-background-card p-1 border border-background-tertiary/50', className)}>
       {/* Animated active pill */}
       <div
-        className="absolute top-1 bottom-1 rounded-full bg-accent-purple/20 pointer-events-none transition-all duration-300"
+        className="absolute top-1 bottom-1 rounded-md bg-accent-purple pointer-events-none transition-all duration-300"
         style={{
           left: `${Math.max(options.indexOf(value), 0) * (100 / options.length)}%`,
           width: `${100 / options.length}%`,
@@ -28,9 +28,9 @@ export function SegmentedControl({ options, value, onChange, className }: Segmen
             key={option}
             onClick={() => onChange(option)}
             className={cn(
-              'relative z-10 px-4 py-1.5 rounded-full text-sm font-medium transition-all',
+              'relative z-10 px-4 py-1.5 rounded-md text-sm font-medium transition-all',
               isActive
-                ? 'text-white scale-[1.02]'
+                ? 'text-white'
                 : 'text-text-secondary hover:text-text-primary'
             )}
             aria-pressed={isActive}
