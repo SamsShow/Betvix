@@ -65,7 +65,7 @@ export default function MarketPage({ params }: PageProps) {
             <span className="text-xs font-medium mt-1">Home</span>
           </Link>
           
-          <Link href="/markets" className="flex flex-col items-center justify-center text-accent-purple">
+          <Link href="/markets" className="flex flex-col items-center justify-center text-accent-primary">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 3V21H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M7 14L11 10L15 14L21 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -74,13 +74,13 @@ export default function MarketPage({ params }: PageProps) {
           </Link>
           
           <div className="flex flex-col items-center justify-center relative">
-            <button className="w-10 h-10 rounded-full bg-accent-purple flex items-center justify-center">
+            <button className="w-10 h-10 rounded-full bg-accent-primary flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 5V19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            <span className="text-xs font-medium mt-1 text-accent-purple">New</span>
+            <span className="text-xs font-medium mt-1 text-accent-primary">New</span>
           </div>
           
           <Link href="/portfolio" className="flex flex-col items-center justify-center text-text-tertiary">

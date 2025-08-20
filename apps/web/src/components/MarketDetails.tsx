@@ -50,7 +50,7 @@ export function MarketDetails({
             market.status === 'open' ? 'bg-accent-green/10 text-accent-green' :
             market.status === 'closed' ? 'bg-market-yellow/10 text-market-yellow' :
             market.status === 'invalid' ? 'bg-market-red/10 text-market-red' :
-            'bg-accent-purple/10 text-accent-purple'
+            'bg-accent-primary/10 text-accent-primary'
           }`}>
             {market.status.replace('_', ' ').toUpperCase()}
           </span>
@@ -99,7 +99,7 @@ export function MarketDetails({
                 </div>
                 <div className="mt-3 h-2.5 w-full rounded-full overflow-hidden bg-background-secondary">
                   <div 
-                    className="h-full bg-accent-purple" 
+                    className="h-full bg-accent-primary" 
                     style={{ width: `${market.odds.yes * 100}%` }}
                   />
                 </div>
@@ -142,21 +142,21 @@ export function MarketDetails({
                 {isOpen && (
                   <div className="space-y-4">
                     <Button 
-                      variant="yes" 
+                      variant="primary" 
                       fullWidth 
                       size="lg"
                       onClick={() => handlePlaceBet('yes')}
-                      className="flex justify-between items-center px-6"
+                      className="flex justify-between items-center px-6 bg-accent-green hover:bg-accent-green-dark"
                     >
                       <span>Yes</span>
                       <span>{Math.round(market.odds.yes * 100)}%</span>
                     </Button>
                     <Button 
-                      variant="no" 
+                      variant="secondary" 
                       fullWidth 
                       size="lg"
                       onClick={() => handlePlaceBet('no')}
-                      className="flex justify-between items-center px-6"
+                      className="flex justify-between items-center px-6 bg-market-red/20 hover:bg-market-red/30 text-market-red"
                     >
                       <span>No</span>
                       <span>{Math.round(market.odds.no * 100)}%</span>

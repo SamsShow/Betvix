@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { WalletProviders } from '@/providers/WalletProviders';
+import { WalletModal } from '@/components/wallet/WalletModal';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -34,9 +36,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="bg-background text-text-primary antialiased">
-        <div className="min-h-screen w-full">
-          {children}
-        </div>
+        <WalletProviders>
+          <div className="min-h-screen w-full">
+            {children}
+          </div>
+          <WalletModal />
+        </WalletProviders>
       </body>
     </html>
   );

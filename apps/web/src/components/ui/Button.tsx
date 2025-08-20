@@ -31,17 +31,17 @@ export function Button({
     <button
       className={cn(
         // Base
-        'relative inline-flex items-center justify-center font-medium select-none whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed outline-none transition-all active:scale-[.97] focus-visible:ring-2 focus-visible:ring-accent-purple/50 gap-2',
+        'relative inline-flex items-center justify-center font-medium select-none whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed outline-none transition-all active:scale-[.97] focus-visible:ring-2 focus-visible:ring-accent-primary/50 gap-2',
         'rounded-button',
         pill && 'rounded-full',
         {
           // Variants
-          'bg-gradient-to-br from-accent-purple-dark to-accent-purple text-white shadow-sm hover:shadow-md hover:from-accent-purple to-accent-purple-dark': variant === 'primary',
+          'bg-gradient-to-br from-accent-primary-dark to-accent-primary text-white shadow-sm hover:shadow-md hover:from-accent-primary hover:to-accent-neon': variant === 'primary',
           'bg-background-secondary/80 backdrop-blur border border-background-tertiary text-text-primary hover:bg-background-tertiary': variant === 'secondary',
-          'border border-accent-purple/40 text-accent-purple hover:bg-accent-purple/10': variant === 'outline',
-          'bg-transparent text-accent-purple hover:bg-accent-purple/10': variant === 'text',
+          'border border-accent-primary/40 text-accent-primary hover:bg-accent-primary/10': variant === 'outline',
+          'bg-transparent text-accent-primary hover:bg-accent-primary/10': variant === 'text',
           'bg-background-secondary hover:bg-background-tertiary p-0': variant === 'icon',
-          'bg-background-card/60 border border-background-tertiary hover:border-accent-purple/30 text-text-primary shadow-sm hover:shadow-md': variant === 'surface',
+          'bg-background-card/60 border border-background-tertiary hover:border-accent-primary/30 text-text-primary shadow-sm hover:shadow-md': variant === 'surface',
           'bg-background-secondary/40 hover:bg-background-secondary/60 text-text-secondary': variant === 'ghost',
           
           // Sizes (excluding icon variant)

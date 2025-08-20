@@ -1,66 +1,89 @@
 "use client";
 
 import React from 'react';
-import { cn } from '@/lib/utils';
-
-interface ActionItem {
-  label: string;
-  icon?: React.ReactNode;
-  onClick: () => void;
-}
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface QuickActionDrawerProps {
   open: boolean;
   onClose: () => void;
-  actions: ActionItem[];
+  actions: {
+    label: string;
+    onClick: () => void;
+    icon?: React.ReactNode;
+  }[];
 }
 
-export function QuickActionDrawer({ open, onClose, actions }: QuickActionDrawerProps) {
+export function QuickActionDrawer({
+  open,
+  onClose,
+  actions,
+}: QuickActionDrawerProps) {
+  // Trap focus when drawer is open
+  const drawerRef = React.useRef<HTMLDivElement>(null);
+  
+  React.useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    }
+    
+    if (open) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [open, onClose]);
+  
   return (
-    <div className={cn('fixed inset-0 z-[60] transition', open ? 'pointer-events-auto' : 'pointer-events-none')}
-      aria-hidden={!open}
-    >
-      {/* Overlay */}
-      <div
-        className={cn(
-          'absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity',
-          open ? 'opacity-100' : 'opacity-0'
-        )}
-        onClick={onClose}
-      />
-      {/* Sheet */}
-      <div
-        className={cn(
-          'fixed left-1/2 -translate-x-1/2 bottom-0 w-full max-w-[430px] px-4 pb-6',
-        )}
-      >
-        <div
-          className={cn(
-            'rounded-2xl border border-white/10 bg-background/90 backdrop-blur-md shadow-2xl transition-transform',
-            open ? 'translate-y-0' : 'translate-y-[110%]'
-          )}
-        >
-          <div className="p-4">
-            <div className="h-1 w-10 rounded-full bg-white/20 mx-auto mb-3" />
-            <div className="grid grid-cols-3 gap-3">
-              {actions.map((a) => (
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
+            onClick={onClose}
+          />
+          <motion.div
+            ref={drawerRef}
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            className="fixed inset-x-0 bottom-0 bg-background-card border-t border-background-tertiary/20 rounded-t-2xl p-6 z-50 shadow-xl"
+          >
+            <div className="w-12 h-1 bg-background-tertiary/30 rounded-full mx-auto mb-6" />
+            
+            <h3 className="text-headline-medium font-semibold mb-6 text-center">Quick Actions</h3>
+            
+            <div className="space-y-4">
+              {actions.map((action, index) => (
                 <button
-                  key={a.label}
-                  onClick={() => { a.onClick(); onClose(); }}
-                  className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl bg-background-secondary/60 border border-white/10 hover:bg-white/5 transition"
+                  key={index}
+                  onClick={() => {
+                    action.onClick();
+                    onClose();
+                  }}
+                  className="w-full flex items-center p-4 rounded-xl hover:bg-background-secondary/30 transition-colors"
                 >
-                  <div className="h-9 w-9 rounded-full flex items-center justify-center bg-accent-purple/20 text-accent-purple">
-                    {a.icon ?? <span>+</span>}
+                  <div className="h-9 w-9 rounded-full flex items-center justify-center bg-accent-primary/20 text-accent-primary">
+                    {action.icon || (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M12 5v14M5 12h14" />
+                      </svg>
+                    )}
                   </div>
-                  <span className="text-xs text-text-primary text-center leading-tight">{a.label}</span>
+                  <span className="ml-4 text-text-primary font-medium">{action.label}</span>
                 </button>
               ))}
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
-
-

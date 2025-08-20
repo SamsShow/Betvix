@@ -119,12 +119,12 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {activeBets.map((bet) => (
               <Link href={`/markets/${bet.id}`} key={bet.id}>
-                <Card className="h-full hover:border-accent-purple/30 transition-colors">
+                <Card className="h-full hover:border-accent-primary/30 transition-colors">
                   <CardHeader>
                     <div className="flex justify-between items-start">
                       <CardTitle className="text-headline-small">{bet.market}</CardTitle>
                       <span className={`text-sm font-medium px-2 py-1 rounded-md ${
-                        bet.betSide === 'Yes' ? 'bg-accent-purple/10 text-accent-purple' : 'bg-market-red/10 text-market-red'
+                        bet.betSide === 'Yes' ? 'bg-accent-primary/10 text-accent-primary' : 'bg-market-red/10 text-market-red'
                       }`}>
                         {bet.betSide}
                       </span>
@@ -204,16 +204,16 @@ export default function Portfolio() {
           </Link>
           
           <div className="flex flex-col items-center justify-center relative">
-            <button className="w-10 h-10 rounded-full bg-accent-purple flex items-center justify-center">
+            <button className="w-10 h-10 rounded-full bg-accent-primary flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 5V19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-            <span className="text-xs font-medium mt-1 text-accent-purple">New</span>
+            <span className="text-xs font-medium mt-1 text-accent-primary">New</span>
           </div>
           
-          <Link href="/portfolio" className="flex flex-col items-center justify-center text-accent-purple">
+          <Link href="/portfolio" className="flex flex-col items-center justify-center text-accent-primary">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 4H3C1.89543 4 1 4.89543 1 6V18C1 19.1046 1.89543 20 3 20H21C22.1046 20 23 19.1046 23 18V6C23 4.89543 22.1046 4 21 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M1 10H23" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

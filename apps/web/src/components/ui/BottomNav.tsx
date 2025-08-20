@@ -1,85 +1,121 @@
 "use client";
 
 import React from 'react';
-import { cn } from '@/lib/utils';
 import Link from 'next/link';
-
-interface NavItem {
-  icon: React.ReactNode;
-  label: string;
-  href: string;
-}
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface BottomNavProps {
-  items: NavItem[];
-  centerAction?: {
-    icon: React.ReactNode;
+  quickAction?: {
+    label: string;
     onClick: () => void;
+    icon?: React.ReactNode;
   };
-  currentPath: string;
+  className?: string;
 }
 
-export function BottomNav({
-  items,
-  centerAction,
-  currentPath,
-}: BottomNavProps) {
-  // Split items to accommodate center action
-  const halfLength = Math.floor(items.length / 2);
-  const leftItems = items.slice(0, centerAction ? halfLength : items.length);
-  const rightItems = centerAction ? items.slice(halfLength) : [];
+export function BottomNav({ quickAction, className }: BottomNavProps) {
+  const pathname = usePathname();
+  
+  // Navigation items
+  const navItems = [
+    {
+      label: 'Home',
+      href: '/',
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      )
+    },
+    {
+      label: 'Markets',
+      href: '/markets',
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+      )
+    },
+    {
+      // Placeholder for center quick action
+      label: '',
+      href: '',
+      icon: <></>
+    },
+    {
+      label: 'Portfolio',
+      href: '/portfolio',
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </svg>
+      )
+    },
+    {
+      label: 'Profile',
+      href: '/profile',
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      )
+    }
+  ];
+  
+  const isActive = (href: string) => pathname === href;
   
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] rounded-t-2xl z-50">
-      <div className="relative h-16">
-        <div className="absolute inset-0 rounded-t-2xl bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 rounded-t-2xl bg-background-card/90 backdrop-blur-md border-t border-white/10" />
-        <div className="relative flex items-center justify-around h-16 px-2">
-          {leftItems.map((item, idx) => (
-            <NavItem 
-              key={`left-${idx}`}
-              {...item} 
-              isActive={currentPath === item.href} 
-            />
-          ))}
+    <div className={cn("fixed bottom-0 left-0 right-0 bg-background-card border-t border-background-tertiary/10 shadow-lg z-40", className)}>
+      <div className="flex items-center justify-around h-16">
+        {navItems.map((item, i) => {
+          // Center quick action
+          if (i === 2) {
+            return (
+              <div key="quickAction" className="relative flex flex-col items-center justify-center -mt-6">
+                <button 
+                  onClick={quickAction?.onClick}
+                  className="w-12 h-12 rounded-full bg-accent-primary flex items-center justify-center -mt-6 shadow-lg"
+                >
+                  {quickAction?.icon || (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                  )}
+                </button>
+                <span className="text-xs font-medium mt-1 text-accent-primary">{quickAction?.label || 'New'}</span>
+              </div>
+            );
+          }
           
-          {centerAction && (
-            <button 
-              onClick={centerAction.onClick}
-              className="w-12 h-12 rounded-full bg-accent-purple flex items-center justify-center -mt-6 shadow-lg"
+          return (
+            <Link 
+              key={item.href} 
+              href={item.href} 
+              className="flex flex-col items-center justify-center"
             >
-              {centerAction.icon}
-            </button>
-          )}
-          
-          {rightItems.map((item, idx) => (
-            <NavItem 
-              key={`right-${idx}`}
-              {...item} 
-              isActive={currentPath === item.href} 
-            />
-          ))}
-        </div>
+              <div className={cn(
+                "flex items-center justify-center transition-colors", 
+                isActive(item.href) ? 'text-accent-primary' : 'text-text-tertiary'
+              )}>
+                {item.icon}
+              </div>
+              <span className={cn(
+                "text-xs font-medium mt-1",
+                isActive(item.href) ? 'text-accent-primary' : 'text-text-tertiary'
+              )}>
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
       </div>
     </div>
-  );
-}
-
-interface NavItemProps extends NavItem {
-  isActive: boolean;
-}
-
-function NavItem({ icon, label, href, isActive }: NavItemProps) {
-  return (
-    <Link 
-      href={href}
-      className={cn(
-        'flex flex-col items-center justify-center w-16',
-        isActive ? 'text-accent-purple' : 'text-text-tertiary'
-      )}
-    >
-      <div className="mb-1">{icon}</div>
-      <span className="text-xs font-medium">{label}</span>
-    </Link>
   );
 }

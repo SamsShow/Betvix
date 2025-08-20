@@ -1,43 +1,49 @@
+"use client";
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-interface OddsDisplayProps extends React.HTMLAttributes<HTMLDivElement> {
-  value: number;
+interface OddsDisplayProps {
+  value: number; // 0-1 representing percentage
+  variant?: 'primary' | 'outline' | 'modern';
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary' | 'outline' | 'modern';
+  className?: string;
 }
 
 export function OddsDisplay({
   value,
+  variant = 'modern',
   size = 'md',
-  variant = 'primary',
   className,
-  ...props
 }: OddsDisplayProps) {
-  // Format to percentage with 0 decimal places
-  const formattedValue = `${Math.round(value * 100)}%`;
+  const percentage = Math.round(value * 100);
   
   return (
-    <div 
+    <div
       className={cn(
-        'flex items-center justify-center font-medium',
+        'inline-flex items-center justify-center',
         {
-          // Size variations
-          'text-xs h-6 w-10': size === 'sm',
-          'text-sm h-8 w-14': size === 'md',
-          'text-base h-10 w-16': size === 'lg',
+          'px-2 py-1': size === 'sm',
+          'px-3 py-1.5': size === 'md',
+          'px-4 py-2': size === 'lg',
           
-          // Variant styles
-          'rounded-full bg-accent-purple text-white': variant === 'primary',
-          'rounded-full bg-background-secondary text-text-primary': variant === 'secondary',
-          'rounded-full border border-accent-purple bg-transparent text-accent-purple': variant === 'outline',
-          'rounded-lg bg-accent-purple/10 text-accent-purple font-semibold': variant === 'modern',
+          'rounded-full bg-accent-primary text-white': variant === 'primary',
+          
+          'rounded-full border border-accent-primary bg-transparent text-accent-primary': variant === 'outline',
+          'rounded-lg bg-accent-primary/10 text-accent-primary font-semibold': variant === 'modern',
         },
         className
       )}
-      {...props}
     >
-      {formattedValue}
+      <span className={cn(
+        {
+          'text-xs': size === 'sm',
+          'text-sm': size === 'md',
+          'text-base': size === 'lg',
+        }
+      )}>
+        {percentage}%
+      </span>
     </div>
   );
 }
