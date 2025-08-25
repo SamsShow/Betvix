@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Tab } from '@headlessui/react';
 import { cn } from '@/lib/utils';
+import { WalletName } from '@aptos-labs/wallet-adapter-react';
 
 export const WalletModal = () => {
   const { 
@@ -36,7 +37,7 @@ export const WalletModal = () => {
   
   // Handle Aptos wallet connection
   const handleConnectAptos = (walletName: string) => {
-    connectAptos(walletName);
+    connectAptos(walletName as WalletName);
     closeWalletModal();
   };
   

@@ -33,7 +33,7 @@ fastify.post('/generate-capsule', async (request, reply) => {
       data: capsule,
     };
   } catch (error) {
-    fastify.log.error('Error generating capsule:', error);
+    fastify.log.error(`Error generating capsule: ${error instanceof Error ? error.message : String(error)}`);
     return reply.status(500).send({ 
       error: 'Failed to generate capsule',
       details: error instanceof Error ? error.message : 'Unknown error'
@@ -57,7 +57,7 @@ fastify.post('/generate-bet-statement', async (request, reply) => {
       data: { betStatement },
     };
   } catch (error) {
-    fastify.log.error('Error generating bet statement:', error);
+    fastify.log.error(`Error generating bet statement: ${error instanceof Error ? error.message : String(error)}`);
     return reply.status(500).send({ 
       error: 'Failed to generate bet statement',
       details: error instanceof Error ? error.message : 'Unknown error'
@@ -81,7 +81,7 @@ fastify.post('/classify-content', async (request, reply) => {
       data: classification,
     };
   } catch (error) {
-    fastify.log.error('Error classifying content:', error);
+    fastify.log.error(`Error classifying content: ${error instanceof Error ? error.message : String(error)}`);
     return reply.status(500).send({ 
       error: 'Failed to classify content',
       details: error instanceof Error ? error.message : 'Unknown error'

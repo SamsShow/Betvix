@@ -46,7 +46,7 @@ export function SegmentedControl({ options, value, onChange, className }: Segmen
       {options.map((option, i) => (
         <button
           key={option}
-          ref={el => itemsRef.current[i] = el}
+          ref={(el: HTMLButtonElement | null) => { if (itemsRef.current) itemsRef.current[i] = el; }}
           className={cn(
             "relative flex-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors z-10",
             value === option ? "text-white" : "text-text-secondary hover:text-text-primary"

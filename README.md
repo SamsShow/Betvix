@@ -56,6 +56,28 @@ pnpm install
 cp .env.example .env
 ```
 
+### News API Configuration
+
+The news ingestion service requires API keys for fetching and processing news:
+
+1. Register for a free News API key at [NewsAPI.org](https://newsapi.org/)
+2. Get a Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+3. Create a `.env` file in the `services/ingestion` directory with the following:
+
+```
+PORT=3002
+NEWS_API_KEY=your_news_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
+ALLOWED_ORIGINS=http://localhost:3000
+```
+
+**Features:**
+- NewsAPI provides real-time news data from various sources
+- Gemini API enhances news articles with concise capsule summaries and prediction statements
+- News data is categorized and formatted for prediction markets
+
+> **Note**: The free tier of NewsAPI has limitations for production use. Consider upgrading to a paid plan or using alternative news APIs like GNEWS, FeedBin, etc. for production deployments.
+
 ### Development
 
 ```bash

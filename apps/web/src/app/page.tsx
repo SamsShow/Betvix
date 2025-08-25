@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CapsuleCard } from '@/components/ui/CapsuleCard';
 import { WalletStatus } from '@/components/wallet/WalletStatus';
 import { useWallet } from '@/contexts/WalletContext';
+import { NewsSection } from '@/components/NewsSection';
 import { 
   GlobeAltIcon, 
   SparklesIcon, 
@@ -206,6 +207,7 @@ export default function Home() {
               <nav className="hidden md:flex space-x-6 ml-8">
                 <Link href="/" className="text-body-medium font-medium text-text-primary hover:text-accent-purple transition-colors">Home</Link>
                 <Link href="/markets" className="text-body-medium font-medium text-text-secondary hover:text-text-primary transition-colors">Markets</Link>
+                <Link href="/news" className="text-body-medium font-medium text-text-secondary hover:text-text-primary transition-colors">News</Link>
                 <Link href="/portfolio" className="text-body-medium font-medium text-text-secondary hover:text-text-primary transition-colors">Portfolio</Link>
                 <Link href="#" className="text-body-medium font-medium text-text-secondary hover:text-text-primary transition-colors">About</Link>
               </nav>
@@ -485,6 +487,14 @@ export default function Home() {
         </div>
       </div>
       </section>
+      
+      {/* News Section */}
+      <NewsSection 
+        title="News Capsules" 
+        description="Stay informed with the latest developments and breaking news in a concise format"
+        initialCategory="crypto"
+        limit={6}
+      />
       
       {/* Market Preview Section - cleaner and responsive */}
       <section className="relative z-10 py-16 md:py-20">

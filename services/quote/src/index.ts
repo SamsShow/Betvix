@@ -67,7 +67,7 @@ fastify.post('/quote', async (request, reply) => {
       },
     };
   } catch (error) {
-    fastify.log.error('Error calculating quote:', error);
+    fastify.log.error(`Error calculating quote: ${error instanceof Error ? error.message : String(error)}`);
     return reply.status(500).send({ 
       error: 'Failed to calculate quote',
       details: error instanceof Error ? error.message : 'Unknown error'

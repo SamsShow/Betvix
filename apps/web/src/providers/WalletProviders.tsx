@@ -29,8 +29,8 @@ const metadata = {
 
 // Configure chains based on environment
 const chains = process.env.NODE_ENV === 'production' 
-  ? [base]
-  : [baseSepolia];
+  ? [base] as const
+  : [baseSepolia] as const;
 
 // Configure wagmi client
 const config = createConfig({
@@ -50,24 +50,16 @@ const config = createConfig({
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
-  chains,
   themeMode: 'dark',
   themeVariables: {
-    '--w3m-accent': '#10b981',
-    '--w3m-accent-fill-color': '#ffffff',
-    '--w3m-accent-color': '#10b981',
-    '--w3m-background-color': '#18181b',
-    '--w3m-overlay-background-color': 'rgba(24, 24, 27, 0.8)',
-    '--w3m-container-border-radius': '12px',
-    '--w3m-wallet-icon-border-radius': '8px',
-    '--w3m-border-radius-master': '12px'
+    '--w3m-accent': '#10b981'
   }
 });
 
 // Configure Aptos wallets
 const aptosWallets = [
-  // Use the PetraWallet directly, not as a constructor
-  PetraWallet
+  // Use a new instance of PetraWallet
+  new PetraWallet()
   // Add more Aptos wallets here as needed
 ];
 

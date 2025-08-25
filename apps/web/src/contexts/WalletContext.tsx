@@ -10,7 +10,6 @@ import {
 } from 'wagmi';
 import { 
   useWallet as useAptosWallet,
-  Wallet as AptosWallet,
   WalletName as AptosWalletName
 } from '@aptos-labs/wallet-adapter-react';
 
@@ -27,12 +26,12 @@ export interface WalletContextType {
   balance: string | null;
   
   // EVM specific
-  evmConnectors: Connector[];
-  connectEvm: (connector: Connector) => void;
+  evmConnectors: readonly Connector[];
+  connectEvm: (params: { connector: Connector }) => void;
   evmAddress: `0x${string}` | undefined;
   
   // Aptos specific
-  aptosWallets: AptosWallet[];
+  aptosWallets: readonly any[];
   connectAptos: (wallet: AptosWalletName) => void;
   aptosAddress: string | undefined;
   
@@ -70,7 +69,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   
   // Aptos Wallet state
   const { 
-    wallets: aptosWallets,
+    wallets,
     connect: connectAptos, 
     account: aptosAccount,
     connected: isAptosConnected,
@@ -78,12 +77,18 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
     disconnect: disconnectAptos
   } = useAptosWallet();
   
+  // Ensure aptosWallets is always an array
+  const aptosWallets = wallets || [];
+  
   const aptosAddress = aptosAccount?.address;
   
   // Combined state
   const isConnected = isEvmConnected || isAptosConnected;
   const isConnecting = isEvmConnecting || isAptosConnecting;
-  const address = activeChain === 'evm' ? evmAddress : aptosAddress;
+  // Handle the address according to chain type
+  const address: string | null = activeChain === 'evm' ? 
+    evmAddress !== undefined ? evmAddress : null : 
+    aptosAddress !== undefined ? aptosAddress : null;
   
   useEffect(() => {
     // Auto-detect which chain is connected
